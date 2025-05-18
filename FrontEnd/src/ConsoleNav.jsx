@@ -1,0 +1,37 @@
+import React from "react";
+import { Link} from "react-router";
+import axios from "axios";
+
+function ConsoleNav(props){
+
+    
+    const LogOut = async () => {
+        try{
+            await axios.post('http://localhost:3000/logout');
+        } catch (error){
+            console.error('Error fetching User:', error);
+        }
+    }
+
+    return(
+        <div className="max-w-screen flex flex-col border-3 border-double bg-gray-600 gap-5">
+            <div className="text-2xl grow flex max-w-screen">
+                <div  className="flex flex-col grow">
+                    <h1 className="text-2xl">{props.currentUser.toUpperCase()}</h1>
+                    <span className="text-sm ml-2">{props.userRole}</span>
+                </div>
+                <button className={[`border-2 border-double p-2 rounded-3xl bg-gray-400 self-end hover:bg-gray-600 active:bg-gray-800 ${props.visible}`]} onClick={LogOut}><Link to="/business-portal">Log Out</Link></button>   
+            </div>
+            <div className="max-w-screen grow">
+                <ul className="flex justify-between">
+                    <li className="border-2 basis-1/6 text-center rounded-t-full bg-gray-400 text-nowrap"><Link to={props.dashboard} className="px-15">Orders</Link></li>
+                    <li className="border-2 basis-1/6 text-center rounded-t-full bg-gray-400 text-nowrap"><Link to={props.inventory} className="px-15">Inventory</Link></li>
+                    <li className="border-2 basis-1/6 text-center rounded-t-full bg-gray-400 text-nowrap"><Link to={props.message} className="px-15">Message of the Day</Link></li>
+                    <li className="border-2 basis-1/6 text-center rounded-t-full bg-gray-400 text-nowrap"><Link to={props.admin} className="px-15">Admin Tools</Link></li>
+                </ul>
+            </div>
+        </div>
+    )
+}
+
+export default ConsoleNav;

@@ -1,0 +1,7 @@
+@import "tailwindcss";
+@import "tailwindcss-animated";
+
+body{
+    background-image: url("https://www.transparenttextures.com/patterns/gplay.png");
+    max-width: 100%;
+}
