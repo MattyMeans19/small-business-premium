@@ -31,8 +31,8 @@ function OrderTab(){
             <button className="border-2 p-2 rounded-full bg-emerald-300 hover:bg-emerald-500 active:bg-emerald-700 w-[50%] place-self-center">Fulfilled</button>
             <h2 className="text-2xl">Abandoned: Order has been abandoned by customer.</h2>
             <button className="border-2 p-2 rounded-full bg-gray-300 hover:bg-gray-500 active:bg-gray-700 w-[50%] place-self-center">Abandoned</button>
-            <h2 className="text-2xl">Cancelled: Order has been cancelled by customer.</h2>
-            <button className="border-2 p-2 rounded-full bg-red-300 hover:bg-red-500 active:bg-red-700 w-[50%] place-self-center">Cancelled</button>
+            <h2 className="text-2xl">Cancelled: Order has been canceled by customer.</h2>
+            <button className="border-2 p-2 rounded-full bg-red-300 hover:bg-red-500 active:bg-red-700 w-[50%] place-self-center">Canceled</button>
         </div>
         <div className={[`col-span-3 border-x-2 border-t-0 bg-white ${visible ? "visible" : "hidden"}`]}>
             <CartItems />

@@ -79,10 +79,16 @@ function Cart(){
                 active={active}
                 onClose={onReserveClicked}
             />
+            <div className="self-center flex justify-center max-w-[50%]">
+                <span className="border-1 size-[32px] rounded-2xl bg-green-400"></span>
+                <span className="mr-5">No Conflict</span>
+                <span className="border-1 size-[32px] rounded-2xl bg-red-500 ml-5"></span>
+                <span>Conflict</span>
+            </div>
             <div className="grow border-10 border-gray-500 bg-white rounded-3xl m-5">
                 {showCart ?
                 <div className="flex flex-col">
-                    <div className="px-10 grid grid-cols-5 gap-auto text-3xl">
+                    <div className="px-10 md:grid grid-cols-5 gap-auto text-3xl hidden md:visible">
                         <span className=" border-b-5 text-center">Item</span>
                         <span className=" border-b-5 text-center">SKU</span>
                         <span className=" border-b-5 text-center"># in Cart</span>
@@ -102,7 +108,7 @@ function Cart(){
 
                     />
                         ))}
-                    <div className="flex flex-wrap w-[30%] place-self-end mt-5">
+                    <div className="flex flex-wrap w-[30%] place-self-center mt-5">
                         <span className="text-start text-2xl basis-1/2">Subtotal:</span>
                         <span className="text-center text-4xl basis-1/2">${Subtotal.toFixed(2)}</span>
                         <span className="border-b-2 text-start text-2xl basis-1/2">Tax: </span>
@@ -111,7 +117,7 @@ function Cart(){
                         <span className="text-center text-4xl basis-1/2">${(Subtotal + (Subtotal * tax)).toFixed(2)}</span>
                     </div>
                     <div className="place-self-center">
-                        <button className="border-5 p-5 text-5xl rounded-3xl bg-blue-300 hover:bg-blue-500 active:bg-blue-700" onClick={() =>(fetchInventory())}>Reserve</button>
+                        <button className="border-5 p-5 text-5xl rounded-3xl bg-blue-300 hover:bg-blue-500 active:bg-blue-700 my-5 " onClick={() =>(fetchInventory())}>Reserve</button>
                     </div>
                 </div>:
                     <h1 className="text-center mt-[10%] text-5xl">There is nothing in your cart. Visit the products page to add items to your cart!</h1>
