@@ -1,9 +1,13 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { Link} from "react-router";
 import axios from "axios";
 
 function ConsoleNav(props){
+    const [pendingOrders, togglePendingOrders] = useState(false);
 
+        useEffect(() => {
+            checkOrders()
+        }, []);
     
     const LogOut = async () => {
         try{
@@ -12,6 +16,19 @@ function ConsoleNav(props){
             console.error('Error fetching User:', error);
         }
     }
+
+    const checkOrders = async () =>{
+        try{
+            const response = await axios.get('http://localhost:3000/orders');
+            let orders = response.data;
+            if(orders.length > 0){
+                togglePendingOrders(true);
+            }
+        } catch (error){
+            console.error('Error fetching User:', error);
+        }
+    }
+
 
     return(
         <div className="max-w-screen flex flex-col border-3 border-double bg-gray-600 gap-5">
@@ -24,7 +41,7 @@ function ConsoleNav(props){
             </div>
             <div className="max-w-screen grow">
                 <ul className="flex justify-between">
-                    <li className="border-2 basis-1/6 text-center rounded-t-full bg-gray-400 text-nowrap"><Link to={props.dashboard} className="px-15">Orders</Link></li>
+                    <li className={[`border-2 basis-1/6 text-center rounded-t-full bg-gray-400 text-nowrap ${pendingOrders ? "animate-ping rounded-full bg-sky-400 opacity-75" : null }`]}><Link to={props.dashboard} className="px-15">Orders</Link></li>
                     <li className="border-2 basis-1/6 text-center rounded-t-full bg-gray-400 text-nowrap"><Link to={props.inventory} className="px-15">Inventory</Link></li>
                     <li className="border-2 basis-1/6 text-center rounded-t-full bg-gray-400 text-nowrap"><Link to={props.message} className="px-15">Message of the Day</Link></li>
                     <li className="border-2 basis-1/6 text-center rounded-t-full bg-gray-400 text-nowrap"><Link to={props.admin} className="px-15">Admin Tools</Link></li>

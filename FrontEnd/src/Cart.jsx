@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import Banner from "./Banner";
 import Footer from "./Footer";
-import cart, {removeFromCart} from "./Cart";
+import cart, {removeFromCart, clearCart} from "./Cart";
 import CartItem from "./CartItem";
 import Reserve from "./Reserve";
 import axios from "axios";
@@ -23,35 +23,34 @@ function Cart(){
 
     const setSubtotal = () =>{
         let sub = 0;
-        let totalAmount = 0;
         for(let i = 0; i < cartArray.length; i++){
         sub += (cartArray[i].price * cartArray[i].amount);
-        totalAmount += cartArray[i].amount;
         }
         changeSub(sub);
     }
 
         const fetchInventory = async () => {
-        let inStock = 0;
-        let stockConflict = false;
-         for(let i = 0; i <cartArray.length; i++){
+            console.log(cartArray);
+            let inStock = 0;
+            let stockConflict = false;
+            for(let i = 0; i <cartArray.length; i++){
 
-        try{
-            const response = await axios.post('http://localhost:3000/checkStock', {sku: cartArray[i].sku});
-            inStock = response.data[0].stock;
-            if(inStock < cartArray[i].amount){
-                stockConflict = true;
+                try{
+                    const response = await axios.post('http://localhost:3000/checkStock', {sku: cartArray[i].sku});
+                    inStock = response.data[0].stock;
+                    if(inStock < cartArray[i].amount){
+                        stockConflict = true;
+                    }
+                } catch (error){
+                    console.error('Error fetching inventory:', error);
+                }
             }
-        } catch (error){
-            console.error('Error fetching inventory:', error);
-        }
-        }
-        if(stockConflict == true){
-            alert("Inventory Conflicts with current stock");
-            window.location.reload();
-        } else{
-            onReserveClicked();
-            }
+            if(stockConflict == true){
+                alert("Inventory Conflicts with current stock");
+                window.location.reload();
+            } else{
+                onReserveClicked();
+                }
     }
 
     function onReserveClicked(){
@@ -67,6 +66,35 @@ function Cart(){
         changeSub(Subtotal + price);
     }
 
+    const onReserved = async (fname, lname, tel) => {
+        let orderObject = [];
+        for(let i = 0; i <cartArray.length; i++){
+            let newObject = {
+                sku: cartArray[i].sku,
+                amount: cartArray[i].amount
+            }
+            orderObject.push(newObject);
+        try{
+            let order = orderObject;
+            await axios.patch('http://localhost:3000/editstock', {sku: order[i].sku, amount: order[i].amount});
+        } catch (error){
+            console.error('Error fetching inventory:', error);
+        }
+        }
+        console.log(orderObject);
+        createOrder(fname, lname, tel, orderObject);
+    }
+
+    const createOrder = async(fname, lname, tel, orderObject) => {
+        try{
+            let order = JSON.stringify(orderObject);
+            await axios.post('http://localhost:3000/newOrder', {fname: fname, lname: lname, tel: tel, order: order, status: "pending"});
+            clearCart();
+        } catch (error){
+            console.error('Error fetching inventory:', error);
+        }
+    }
+
 
     
     
@@ -78,6 +106,7 @@ function Cart(){
                 total={(Subtotal + (Subtotal * tax)).toFixed(2)}
                 active={active}
                 onClose={onReserveClicked}
+                onSubmit={onReserved}
             />
             <div className="self-center flex justify-center max-w-[50%]">
                 <span className="border-1 size-[32px] rounded-2xl bg-green-400"></span>

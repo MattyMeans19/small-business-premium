@@ -44,6 +44,29 @@ const db = new pg.Client({
     res.json(userData)
   });
 
+  app.get("/orders", async (req, res) => {
+          try{
+          let currentOrders = await db.query("SELECT * FROM orders ORDER BY id ASC");
+          res.json(currentOrders.rows)
+        } catch (err){
+            console.error(err);
+            res.status(500).send('Error fetching data');
+            return;
+          }
+  });
+
+  app.post("/getOrders", async (req, res) => {
+    let sku = req.body.sku;
+          try{
+          let currentOrders = await db.query("SELECT * FROM liveinventory WHERE sku = $1", [sku]);
+          res.json(currentOrders.rows)
+        } catch (err){
+            console.error(err);
+            res.status(500).send('Error fetching data');
+            return;
+          }
+  });
+
   app.get("/adminList", async (req,res) =>{
     try{
       let userList = await db.query("SELECT * FROM users ORDER BY firstname ASC");
@@ -322,6 +345,37 @@ const db = new pg.Client({
 
     try{
       const result = await db.query('INSERT INTO users (username, firstname, lastname, password, role) VALUES ($1, $2, $3, $4, $5)', [uname, fname, lname, password, role]);
+      res.json(result.rows);
+    } catch (err){
+      console.error(err);
+      res.status(500).send('Error adding data');
+      return;
+    }
+  });
+
+    app.post("/newOrder", async (req,res) => {
+    let fname = req.body.fname;
+    let lname = req.body.lname;
+    let tel = req.body.tel;
+    let order = req.body.order;
+    let status = req.body.status;
+
+    try{
+      const result = await db.query('INSERT INTO orders (fname, lname, tel, itemarray, status) VALUES ($1, $2, $3, $4, $5)', [fname, lname, tel, order, status]);
+      res.json(result.rows);
+    } catch (err){
+      console.error(err);
+      res.status(500).send('Error adding data');
+      return;
+    }
+  });
+
+  app.patch("/editstock", async (req,res) => {
+    let sku = req.body.sku;
+    let amount = req.body.amount;
+
+    try{
+      const result = await db.query('UPDATE liveinventory SET stock = stock - $1 WHERE sku = $2', [amount, sku]);
       res.json(result.rows);
     } catch (err){
       console.error(err);

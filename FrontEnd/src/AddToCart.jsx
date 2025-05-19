@@ -46,7 +46,7 @@ function AddToCart(props){
 
 
     return(
-        <div className={[`border-10 border-gray-700 bg-white rounded-3xl mx-[5%] gap-5 flex flex-col md:flex-row text-2xl place-items-center fixed inset-5 z-1 ${props.visiblilty ? "visible" : "hidden"}`]}>
+        <div className={[`border-10 border-gray-700 bg-white rounded-3xl mx-[5%] gap-5 flex flex-col md:flex-row md:text-2xl place-items-center fixed inset-5 z-1 ${props.visiblilty ? "visible" : "hidden"}`]}>
             <button onClick={() => (Close())} className="place-self-start p-2"><CancelPresentationIcon /></button>
             <div className="basis-1/2 md:flex flex-col place-items-center gap-5 border-3 p-10 hidden md:visible">
                 <span>{info.name}</span>
@@ -62,7 +62,7 @@ function AddToCart(props){
                 <span className="text-center md:hidden">{info.name}</span>
                 <img src={info.image} className="size-[5rem] self-center md:hidden"></img>
                 <span className="text-center md:hidden">Available: {info.stock}</span>
-                <div className="md:mt-30 grow h-[100%] flex flex-wrap gap-10 text-5xl justify-center">
+                <div className="md:mt-30 grow h-[100%] flex flex-wrap gap-10 md:text-5xl justify-center">
                     <button className="basis-1/8 border-4 bg-gray-300 hover:bg-gray-500 active:bg-gray-700" onClick={() => (subtractAmount())}>-</button>
                     <span className="basis-1/4 text-center border-4 p-2">{amount}</span>
                     <button className="basis-1/8 border-4 bg-gray-300 hover:bg-gray-500 active:bg-gray-700" onClick={() => (addAmount())}>+</button>

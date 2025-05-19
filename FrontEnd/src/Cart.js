@@ -12,6 +12,7 @@ export function addToCart(name, sku, amount, price){
         }
     );
     alert("Added to cart!");
+    console.log(currentCart);
     sessionStorage.setItem('cart', JSON.stringify(currentCart));
 }
 
@@ -32,5 +33,12 @@ export function UpdateAmount(a, id){
     currentCart[id].amount = a;
     sessionStorage.setItem('cart', JSON.stringify(currentCart));
 }
+
+export function clearCart(){
+    sessionStorage.setItem('cart', []);
+    alert("Cart Reserved!");
+    window.location.reload();
+}
+
 
 export default cart;
