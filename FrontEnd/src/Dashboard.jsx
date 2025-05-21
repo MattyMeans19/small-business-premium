@@ -33,7 +33,7 @@ function Dashboard(){
 
     const fetchOrders = async () => {
     try{
-        const response = await axios.get('http://localhost:3000/orders');
+        const response = await axios.get('http://localhost:3000/pendingorders');
         updateOrders([... response.data]);
     } catch (error){
         console.error('Error fetching User:', error);
@@ -62,6 +62,8 @@ function Dashboard(){
                         lName={order.lname}
                         tel={order.tel}
                         items={order.itemarray}
+                        orderNumber={order.ordernumber}
+                        status={order.status}
                     />
                 ))}                    
                 </div>

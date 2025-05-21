@@ -1,9 +1,26 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
+import axios from "axios";
 
 function Reserve(props){
     const [fName, changeFName] = useState("");
     const [lName, changeLName] = useState("");
     const [tel, changeTel] = useState("");
+    const [orderNumber, changeOrderNumber] = useState();
+    const [orders, updateOrders] = useState([]);
+
+    useEffect(() => {
+        fetchOrders();
+    }, []);
+
+
+    const fetchOrders = async () => {
+    try{
+        const response = await axios.get('http://localhost:3000/orders');
+        updateOrders([... response.data]);
+    } catch (error){
+        console.error('Error fetching User:', error);
+    }
+}
 
     function fNameChange(){
         let newFName = document.getElementById("fName").value;
@@ -18,6 +35,20 @@ function Reserve(props){
     function telChange(){
         let newTel = document.getElementById("pNumber").value;
         changeTel(newTel);
+    }
+
+    function generateOrder(){
+        let day = new Date().getDay();
+        let month = new Date().getMonth();
+        let year = new Date().getFullYear();
+
+        let orderNumber = day + month + year + orders.length;
+        console.log(orderNumber);
+        submitOrder(orderNumber);
+    }
+
+    function submitOrder(o){
+        props.onSubmit(fName, lName, tel, o);
     }
 
     return(
@@ -36,7 +67,7 @@ function Reserve(props){
                 <p className="text-red-600 md:text-3xl">By reserving this cart your items will be temporarily removed from inventory and placed on hold for you at the store. Your reservation will be canceled after 'X-amount of time'.</p>
                 <p className="text-red-600 md:text-3xl">It's possbile that when orders are made simultaneously there may be inventory conflicts. Please make sure that your telephone number is correct so that the seller may contact you regarding any issues with your reservation.</p>
                 <span className="md:text-4xl">Total: ${props.total}</span>
-                <button className="md:text-3xl border-5 w-[50%] place-self-center rounded-3xl bg-green-400 hover:bg-green-600 active:bg-green-800" onClick={() => (props.onSubmit(fName, lName, tel))}>Submit</button>
+                <button className="md:text-3xl border-5 w-[50%] place-self-center rounded-3xl bg-green-400 hover:bg-green-600 active:bg-green-800" onClick={() => (generateOrder())}>Submit</button>
             </div>
         </div>
     )

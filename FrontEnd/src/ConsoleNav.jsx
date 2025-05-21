@@ -19,7 +19,7 @@ function ConsoleNav(props){
 
     const checkOrders = async () =>{
         try{
-            const response = await axios.get('http://localhost:3000/orders');
+            const response = await axios.get('http://localhost:3000/pendingorders');
             let orders = response.data;
             if(orders.length > 0){
                 togglePendingOrders(true);

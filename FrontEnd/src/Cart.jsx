@@ -66,7 +66,7 @@ function Cart(){
         changeSub(Subtotal + price);
     }
 
-    const onReserved = async (fname, lname, tel) => {
+    const onReserved = async (fname, lname, tel, o) => {
         let orderObject = [];
         for(let i = 0; i <cartArray.length; i++){
             let newObject = {
@@ -81,14 +81,13 @@ function Cart(){
             console.error('Error fetching inventory:', error);
         }
         }
-        console.log(orderObject);
-        createOrder(fname, lname, tel, orderObject);
+        createOrder(fname, lname, tel, o, orderObject);
     }
 
-    const createOrder = async(fname, lname, tel, orderObject) => {
+    const createOrder = async(fname, lname, tel, o, orderObject) => {
         try{
             let order = JSON.stringify(orderObject);
-            await axios.post('http://localhost:3000/newOrder', {fname: fname, lname: lname, tel: tel, order: order, status: "pending"});
+            await axios.post('http://localhost:3000/newOrder', {fname: fname, lname: lname, tel: tel, order: order, status: "pending", orderNumber: o});
             clearCart();
         } catch (error){
             console.error('Error fetching inventory:', error);

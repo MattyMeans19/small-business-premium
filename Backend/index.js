@@ -44,9 +44,9 @@ const db = new pg.Client({
     res.json(userData)
   });
 
-  app.get("/orders", async (req, res) => {
+  app.get("/pendingorders", async (req, res) => {
           try{
-          let currentOrders = await db.query("SELECT * FROM orders ORDER BY id ASC");
+          let currentOrders = await db.query("SELECT * FROM orders WHERE status = 'pending'");
           res.json(currentOrders.rows)
         } catch (err){
             console.error(err);
@@ -359,9 +359,10 @@ const db = new pg.Client({
     let tel = req.body.tel;
     let order = req.body.order;
     let status = req.body.status;
+    let orderNumber = req.body.orderNumber
 
     try{
-      const result = await db.query('INSERT INTO orders (fname, lname, tel, itemarray, status) VALUES ($1, $2, $3, $4, $5)', [fname, lname, tel, order, status]);
+      const result = await db.query('INSERT INTO orders (fname, lname, tel, itemarray, status, orderNumber) VALUES ($1, $2, $3, $4, $5, $6)', [fname, lname, tel, order, status, orderNumber]);
       res.json(result.rows);
     } catch (err){
       console.error(err);
@@ -382,6 +383,46 @@ const db = new pg.Client({
       res.status(500).send('Error adding data');
       return;
     }
+  });
+
+    app.patch("/restock", async (req,res) => {
+    let sku = req.body.sku;
+    let amount = req.body.amount;
+
+    try{
+      const result = await db.query('UPDATE liveinventory SET stock = stock + $1 WHERE sku = $2', [amount, sku]);
+      res.json(result.rows);
+    } catch (err){
+      console.error(err);
+      res.status(500).send('Error adding data');
+      return;
+    }
+  });
+
+  app.patch("/orderFulfilled", async (req,res) => {
+    let status = "fulfilled";
+    let orderNumber = req.body.orderNumber;
+      try{
+        const result = await db.query('UPDATE orders SET status = $1 WHERE ordernumber = $2', [status, orderNumber]);
+        res.json(result.rows);
+      } catch (err){
+        console.error(err);
+        res.status(500).send('Error adding data');
+        return;
+      }
+  });
+
+    app.patch("/orderCanceled", async (req,res) => {
+    let status = "canceled";
+    let orderNumber = req.body.orderNumber;
+      try{
+        const result = await db.query('UPDATE orders SET status = $1 WHERE ordernumber = $2', [status, orderNumber]);
+        res.json(result.rows);
+      } catch (err){
+        console.error(err);
+        res.status(500).send('Error adding data');
+        return;
+      }
   });
 
   app.listen(port, () => {
