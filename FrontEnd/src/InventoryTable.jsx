@@ -87,7 +87,7 @@ function InventoryTable(props){
             ? 
             <div>
                 <form className="col-span-1 h-[100%] border-double border-5 border-gray-400 bg-white p-5 rounded-3xl flex flex-col gap-4">
-                    <div className="basis-1/10 flex justify-between">
+                    <div className="flex flex-nowrap px-10 justify-center">
                         <button type="button" className="hover:bg-blue-500 rounded-full" onClick={() =>{saveChanges()}}><SaveIcon /></button>
                        <input type="text" id="name" placeholder="Product Name" className="text-center text-2xl underline" onChange={() =>{editName()}}></input>
                        <button type="button" className="hover:bg-blue-500 rounded-full" onClick={() =>{editing()}}><CancelIcon /></button>

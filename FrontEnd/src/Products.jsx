@@ -82,7 +82,7 @@ function Products(){
                     filtered = {addFilter}
                 />
                 <div className="border-solid border-3 border-gray-600 bg-gray-300 col-start-1 col-span-full row-start-2 row-span-9 lg:col-start-3 lg:col-span-8 lg:row-start-1 lg:row-span-9 lg:mr-5 my-5 lg:my-0 rounded-xl flex flex-wrap gap-5 px-[5%] pb-5">
-                    <p className="text-center text-[1.5rem] p-2 underline basis-full"> This panel will contain all the product cards for your inventory.</p>
+                    <p className="text-center text-[1.5rem] p-2 text-red-500 basis-full"> Discounts are not reflected on product card!</p>
                     {inventory.map((item) =>(
                         <ProductCard 
                             key={item.id}
