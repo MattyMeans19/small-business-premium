@@ -1,4 +1,4 @@
-import React, {use, useState} from "react";
+import React, {useEffect, useState} from "react";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import SaveIcon from '@mui/icons-material/Save';
@@ -102,7 +102,7 @@ function InventoryTable(props){
                     <input type="text" id="imageURL" placeholder="insert image URL here" className="grow border-1" onChange={() =>{editImageURL()}}></input>
                     <img src= {newImage} className="w-[15rem] h-[15rem] self-center border-solid border-2 rounded-xl"></img>
                     <input type="text" id="info" placeholder="Enter product info here" className="grow border-1 italic" onChange={() =>{editInfo()}} maxLength="20"></input>
-                    <input type="number" id="stock" placeholder="Stock Amount" className="text-center border-1" onChange={() =>{editStock()}}></input>
+                    <input type="number" id="stock" placeholder={[`Stock Amount : ${props.stock}`]} className="text-center border-1" onChange={() =>{editStock()}}></input>
                     <input type="text" id="price" placeholder="Enter the price here, do NOT include the $" className="border-1" onChange={() =>{editPrice()}}></input>
                 </form>
             </div> 

@@ -44,6 +44,17 @@ const db = new pg.Client({
     res.json(userData)
   });
 
+  app.get("/orders", async (req, res) => {
+          try{
+          let currentOrders = await db.query("SELECT * FROM orders ORDER BY ordernumber ASC");
+          res.json(currentOrders.rows)
+        } catch (err){
+            console.error(err);
+            res.status(500).send('Error fetching data');
+            return;
+          }
+  });
+
   app.get("/pendingorders", async (req, res) => {
           try{
           let currentOrders = await db.query("SELECT * FROM orders WHERE status = 'pending'");
@@ -423,6 +434,30 @@ const db = new pg.Client({
         res.status(500).send('Error adding data');
         return;
       }
+  });
+
+    app.patch("/orderStatusPurge", async (req,res) => {
+    let status = req.body.status;
+      try{
+        const result = await db.query('DELETE FROM orders WHERE status = $1', [status]);
+        res.json(result.rows);
+      } catch (err){
+        console.error(err);
+        res.status(500).send('Error deleting data');
+        return;
+      }
+  });
+
+  app.post("/vieworders", async (req, res) => {
+    let status = req.body.status;
+          try{
+          let currentOrders = await db.query("SELECT * FROM orders WHERE status = $1 ORDER BY ordernumber ASC", [status]);
+          res.json(currentOrders.rows)
+        } catch (err){
+            console.error(err);
+            res.status(500).send('Error fetching data');
+            return;
+          }
   });
 
   app.listen(port, () => {

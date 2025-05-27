@@ -5,7 +5,6 @@ function Reserve(props){
     const [fName, changeFName] = useState("");
     const [lName, changeLName] = useState("");
     const [tel, changeTel] = useState("");
-    const [orderNumber, changeOrderNumber] = useState();
     const [orders, updateOrders] = useState([]);
 
     useEffect(() => {

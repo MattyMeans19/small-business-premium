@@ -6,7 +6,11 @@ function ConsoleNav(props){
     const [pendingOrders, togglePendingOrders] = useState(false);
 
         useEffect(() => {
-            checkOrders()
+            checkOrders();
+            const orderCheck = setInterval(() =>{
+                checkOrders();
+            }, 10000);
+            return () => clearInterval(orderCheck);
         }, []);
     
     const LogOut = async () => {

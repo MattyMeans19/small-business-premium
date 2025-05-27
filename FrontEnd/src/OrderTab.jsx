@@ -3,7 +3,6 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import axios from "axios";
 import CartItems from "./CartItems";
-import CartItem from "./CartItem";
 
 function OrderTab(props){
     const [visible, changeVisibility] = useState(false);
