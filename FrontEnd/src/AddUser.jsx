@@ -55,9 +55,18 @@ function AddUser(props){
             props.onSave();
             addMode();
             alert("New User Created!")
+            clearEntries();
         } catch (error){
             console.error('Error Saving Edit:', error);
         }
+    }
+
+    function clearEntries(){
+        newFName("");
+        newLName("");
+        newUName("");
+        updatePassword("");
+        newRole("Employee");
     }
 
     return(

@@ -26,10 +26,6 @@ function UsersTable(props){
         let lName = document.getElementById("newLName").value;
         newLName(lName);
     }
-    function changeUName(){
-        let uName = document.getElementById("newUName").value;
-        newUName(uName.toUpperCase());
-    }
     function changePassword(){
         let newPassword = document.getElementById("newPassword").value;
         updatePassword(newPassword);
