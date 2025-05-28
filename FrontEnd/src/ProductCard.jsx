@@ -9,7 +9,7 @@ function ProductCard(props){
     }
 
     return(
-        <div className={[`border-double border-5 border-gray-400 bg-white p-5 rounded-3xl flex flex-col gap-4 max-w-[100%] ${inStock ? "visible" : "hidden"}`]}>
+        <div className={[`grow border-double border-5 border-gray-400 bg-white p-5 rounded-3xl flex flex-col gap-4 max-w-[100%] ${inStock ? "visible" : "hidden"}`]}>
             <h3 className="basis-1/10 text-center text-2xl underline">{props.name}</h3>
             <span className="self-center">Item#: {props.sku}</span>
             <span className="self-center">Brand: {props.brand}</span>
