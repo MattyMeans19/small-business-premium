@@ -86,7 +86,7 @@ function OrderTab(props){
     return(
         <div className="grid grid-cols-5 mx-10">
         <div className="col-span-full border-1 flex flex-nowrap justify-between bg-blue-200">
-            <button className="opacity-25 border-1 m-1 hover:opacity-50 activ:opacity-100" onClick={() => (View())}>{visible ? <ArrowDownwardIcon /> : <ArrowUpwardIcon />}</button>
+            <button className="opacity-25 border-1 m-1 hover:opacity-50 active:opacity-100" onClick={() => (View())}>{visible ? <ArrowDownwardIcon /> : <ArrowUpwardIcon />}</button>
             <div className="text-2xl basis-1/3 text-center">
                 <label htmlFor="customerName">Customer Name: </label>
                 <span id="customerName">{props.fName} {props.lName}</span>                            
