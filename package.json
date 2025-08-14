@@ -1,0 +1,20 @@
+{
+  "name": "my-fullstack-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "backend/index.js",
+  "scripts": {
+    "start": "node index.js",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+  },
+   "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "pg": "^8.14.1"
+  },
+  "engines": {
+    "node": "23.8.0" 
+  }
+}
