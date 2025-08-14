@@ -2,10 +2,10 @@
   "name": "smallbusiness-premium",
   "version": "1.0.0",
   "description": "",
-  "main": "backend/index.js",
+  "main": "BackEnd/index.js",
   "scripts": {
     "start": "node index.js",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install && npm run build"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix FrontEnd && npm run build --prefix FrontEnd"
   },
    "dependencies": {
     "bcrypt": "^5.1.1",
