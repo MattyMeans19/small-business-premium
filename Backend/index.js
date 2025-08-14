@@ -2,12 +2,10 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import pg from 'pg';
-import bcrypt from 'bcrypt';
 
 const app = express();
 const port = 3000 || process.env.PORT;
 
-const saltRounds = 10;
 
 let user = "";
 let userRole = "";
