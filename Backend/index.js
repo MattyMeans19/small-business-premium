@@ -18,8 +18,6 @@ let userRole = "";
 app.use(cors());
 app.use(bodyParser.json());
 
-
-// In your actual code, you would use this line instead:
 const db = new pg.Client({
   connectionString: process.env.DATABASE_URL,
   ssl: {
@@ -225,7 +223,7 @@ db.connect()
 
     try{
       let result = await db.query(
-        "UPDATE liveinventory SET name = $1, price = $2, info = $3, image = $4, type = $5, sku = $7, stock = $8, brand = $9 WHERE id = $6;", [name, price, info, image, type, id, sku, stock, brand]);
+        "UPDATE liveinventory SET name = $1, price = $2, info = $3, image = $4, type = $5, id = $6, sku = $7, stock = $8, brand = $9 WHERE id = $6;", [name, price, info, image, type, id, sku, stock, brand]);
         res.json(result.rows);
     } catch (err){
       console.error(err);
