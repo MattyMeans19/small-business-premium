@@ -3,6 +3,7 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import axios from "axios";
 import CartItems from "./CartItems";
+import { BASE_URL } from "./constants";
 
 function OrderTab(props){
     const [visible, changeVisibility] = useState(false);
@@ -20,7 +21,7 @@ function OrderTab(props){
         let itemArray = [];
         for(let i = 0; i < orderItems.length; i++){
         try{
-            const response = await axios.post('http://localhost:3000/getOrders', {sku: orderItems[i].sku});
+            const response = await axios.post(`${BASE_URL}/getOrders`, {sku: orderItems[i].sku});
             let orderData = response.data[0];
             itemArray.push(orderData);
             setSubtotal(orderData.price)
@@ -46,7 +47,7 @@ function OrderTab(props){
     const orderFulfilled = async () =>{
         try{
             let orderNumber = props.orderNumber;
-            await axios.patch('http://localhost:3000/orderFulfilled', {orderNumber: orderNumber});
+            await axios.patch(`${BASE_URL}/orderFulfilled`, {orderNumber: orderNumber});
         } catch (error){
             console.error('Error fulfilling order:', error);
         }
@@ -57,7 +58,7 @@ function OrderTab(props){
     const orderCanceled = async() => {
         try{
             let orderNumber = props.orderNumber;
-            await axios.patch('http://localhost:3000/orderCanceled', {orderNumber: orderNumber});
+            await axios.patch(`${BASE_URL}/orderCanceled`, {orderNumber: orderNumber});
         } catch (error){
             console.error('Error fulfilling order:', error);
         }
@@ -76,7 +77,7 @@ function OrderTab(props){
             orderObject.push(newObject);
         try{
             let order = orderObject;
-            await axios.patch('http://localhost:3000/restock', {sku: order[i].sku, amount: order[i].amount});
+            await axios.patch(`${BASE_URL}/restock`, {sku: order[i].sku, amount: order[i].amount});
         } catch (error){
             console.error('Error fetching inventory:', error);
         }

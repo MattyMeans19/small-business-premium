@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import { UpdateAmount } from "./Cart";
 import ItemCard from "./ItemCard";
+import { BASE_URL } from "./constants";
 
 function CartItem(props){
     const [available, changeAvailability] = useState(false);
@@ -21,7 +22,7 @@ function CartItem(props){
 
     const fetchInventory = async (sku) => {
         try{
-            const response = await axios.post('http://localhost:3000/checkStock', {sku: sku});
+            const response = await axios.post(`${BASE_URL}/checkStock`, {sku: sku});
             let inStock = response.data[0].stock;
             changeInStock(inStock)
         } catch (error){

@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
 import cart, {addToCart} from "./Cart";
 import axios from "axios";
+import { BASE_URL } from "./constants";
 
 function AddToCart(props){
     const [amount, changeAmount] = useState(1);
@@ -27,7 +28,7 @@ function AddToCart(props){
 
     function VerifyStock(){
         try{
-            const response = axios.get('http://localhost:3000/inventory');
+            const response = axios.get(`${BASE_URL}/inventory`);
             SetInventory(response.data);
         } catch (error){
             console.error('Error fetching inventory:', error);

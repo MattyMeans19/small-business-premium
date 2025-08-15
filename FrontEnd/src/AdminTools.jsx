@@ -4,6 +4,7 @@ import ConsoleNav from "./ConsoleNav";
 import UsersTable from "./UsersTable";
 import { useNavigate } from "react-router";
 import AddUser from "./AddUser";
+import { BASE_URL } from "./constants";
 
 function Admin(){
     const [currentUser, ChangeUser] = useState("");
@@ -19,7 +20,7 @@ function Admin(){
 
     const fetchUser = async () => {
     try{
-        const response = await axios.get('http://localhost:3000/user');
+        const response = await axios.get(`${BASE_URL}/user`);
         if(response.data.currentUser != ""){
             ChangeUser(response.data.currentUser);
             changeUserRole(response.data.currentRole);
@@ -48,7 +49,7 @@ function Admin(){
 
     const fetchUserList = async () => {
         try{
-            const response = await axios.get('http://localhost:3000/userList');
+            const response = await axios.get(`${BASE_URL}/userList`);
             changeList(response.data);
         } catch (error){
             console.error('Error fetching inventory:', error);
@@ -56,7 +57,7 @@ function Admin(){
     }
     const fetchAdminList = async () => {
         try{
-            const response = await axios.get('http://localhost:3000/adminList');
+            const response = await axios.get(`${BASE_URL}/adminList`);
             changeList(response.data);
         } catch (error){
             console.error('Error fetching inventory:', error);

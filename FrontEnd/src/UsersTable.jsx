@@ -4,6 +4,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Cancel';
 import axios from "axios";
+import { BASE_URL } from "./constants";
 
 function UsersTable(props){
     const [editingMode, changeEditingMode] = useState(false);
@@ -46,7 +47,7 @@ function UsersTable(props){
 
     const saveEdit = async (id, f, l, u, p, r) => {
         try{
-            const response = await axios.post('http://localhost:3000/saveEdit', {id: id, fname: f, lname: l, uname: u, password: p, role: r});
+            const response = await axios.post(`${BASE_URL}/saveEdit`, {id: id, fname: f, lname: l, uname: u, password: p, role: r});
             props.refresh();
             toggleEdit();
             alert("User Info Updated!")
@@ -59,7 +60,7 @@ function UsersTable(props){
 
         if(canDelete && currentUser != uName){
             try{
-                const response = await axios.post('http://localhost:3000/deleteUser', {id: id});
+                const response = await axios.post(`${BASE_URL}/deleteUser`, {id: id});
                 alert("User Deleted")
                 props.refresh();
             } catch (error){

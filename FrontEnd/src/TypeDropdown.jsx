@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
+import { BASE_URL } from "./constants";
 
 function TypeDropdown(props){
     const[types, changeTypes] = useState([]);
@@ -10,7 +11,7 @@ function TypeDropdown(props){
 
     const fetchTypes = async () => {
         try{
-            const response = await axios.get('http://localhost:3000/types');
+            const response = await axios.get(`${BASE_URL}/types`);
             changeTypes(response.data);
         } catch (error){
             console.error('Error fetching inventory:', error);

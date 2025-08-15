@@ -5,6 +5,7 @@ import InventoryTable from "./InventoryTable";
 import NewInventory from "./NewInventory";
 import { useNavigate } from "react-router";
 import NewCategory from "./NewCategory";
+import { BASE_URL } from "./constants";
 
 function Inventory(){
 
@@ -24,7 +25,7 @@ function Inventory(){
 
     const fetchInventory = async () => {
         try{
-            const response = await axios.get('http://localhost:3000/inventory');
+            const response = await axios.get(`${BASE_URL}/inventory`);
             SetInventory(response.data);
         } catch (error){
             console.error('Error fetching inventory:', error);
@@ -34,7 +35,7 @@ function Inventory(){
     
     const fetchUser = async () => {
         try{
-            const response = await axios.get('http://localhost:3000/user');
+            const response = await axios.get(`${BASE_URL}/user`);
             if(response.data.currentUser != ""){
                 ChangeUser(response.data.currentUser);
                 changeUserRole(response.data.currentRole);
@@ -58,7 +59,7 @@ function Inventory(){
 
     const SearchItem = async () => {
         try{
-            const response = await axios.post('http://localhost:3000/search', {name: searchBy})
+            const response = await axios.post(`${BASE_URL}/search`, {name: searchBy})
             if(response.data != ""){
                SetInventory(response.data); 
             } else{
@@ -88,7 +89,7 @@ function Inventory(){
 
     const SaveItem = async (n, i, p, url, t, b, sku, stock) => {
         try{
-            const response = await axios.post('http://localhost:3000/additem', {name: n, info: i, price: p, image: url, type: t, brand: b, sku: sku, stock: stock});
+            const response = await axios.post(`${BASE_URL}/additem`, {name: n, info: i, price: p, image: url, type: t, brand: b, sku: sku, stock: stock});
             alert("Item Added!");
             fetchInventory();
             ChangeAdding(false);
@@ -108,7 +109,7 @@ function Inventory(){
 
     const NewBrand = async(brand) => {
         try{
-            const response = await axios.post('http://localhost:3000/newBrand', {brand: brand})
+            const response = await axios.post(`${BASE_URL}/newBrand`, {brand: brand})
             alert("New Brand Added!");
         } catch (error){
             console.error('Error Adding Brand:', error);
@@ -126,7 +127,7 @@ function Inventory(){
 
     const NewType = async(type) => {
         try{
-            const response = await axios.post('http://localhost:3000/newType', {type: type})
+            const response = await axios.post(`${BASE_URL}/newType`, {type: type})
             alert("New Type Added!");
         } catch (error){
             console.error('Error Adding Type:', error);

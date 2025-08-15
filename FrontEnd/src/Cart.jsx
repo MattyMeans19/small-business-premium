@@ -5,6 +5,7 @@ import cart, {removeFromCart, clearCart} from "./Cart";
 import CartItem from "./CartItem";
 import Reserve from "./Reserve";
 import axios from "axios";
+import { BASE_URL } from "./constants";
 
 function Cart(){
     let currentCart = sessionStorage.getItem('cart');
@@ -36,7 +37,7 @@ function Cart(){
             for(let i = 0; i <cartArray.length; i++){
 
                 try{
-                    const response = await axios.post('http://localhost:3000/checkStock', {sku: cartArray[i].sku});
+                    const response = await axios.post(`${BASE_URL}/checkStock`, {sku: cartArray[i].sku});
                     inStock = response.data[0].stock;
                     if(inStock < cartArray[i].amount){
                         stockConflict = true;
@@ -76,7 +77,7 @@ function Cart(){
             orderObject.push(newObject);
         try{
             let order = orderObject;
-            await axios.patch('http://localhost:3000/editstock', {sku: order[i].sku, amount: order[i].amount});
+            await axios.patch(`${BASE_URL}/editstock`, {sku: order[i].sku, amount: order[i].amount});
         } catch (error){
             console.error('Error fetching inventory:', error);
         }
@@ -87,7 +88,7 @@ function Cart(){
     const createOrder = async(fname, lname, tel, o, orderObject) => {
         try{
             let order = JSON.stringify(orderObject);
-            await axios.post('http://localhost:3000/newOrder', {fname: fname, lname: lname, tel: tel, order: order, status: "pending", orderNumber: o});
+            await axios.post(`${BASE_URL}/newOrder`, {fname: fname, lname: lname, tel: tel, order: order, status: "pending", orderNumber: o});
             clearCart();
         } catch (error){
             console.error('Error fetching inventory:', error);

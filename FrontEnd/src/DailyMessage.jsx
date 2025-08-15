@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 import ConsoleNav from "./ConsoleNav";
 import { useNavigate } from "react-router";
+import { BASE_URL } from "./constants";
 
 function DailyMessage(){
         const [currentUser, ChangeUser] = useState("");
@@ -17,7 +18,7 @@ function DailyMessage(){
 
         const fetchUser = async () => {
         try{
-            const response = await axios.get('http://localhost:3000/user');
+            const response = await axios.get(`${BASE_URL}/user`);
             if(response.data.currentUser != ""){
                 ChangeUser(response.data.currentUser);
                 changeUserRole(response.data.currentRole);
@@ -32,7 +33,7 @@ function DailyMessage(){
 
     const saveMessage = async (message) => {
         try{
-            const response = await axios.post('http://localhost:3000/updatemessage', {message: message});
+            const response = await axios.post(`${BASE_URL}/updatemessage`, {message: message});
             if(response.data !=""){
                 alert("Daily Message Changed!");
                 document.getElementById("dailyMessage").value="";

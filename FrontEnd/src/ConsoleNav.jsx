@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { Link} from "react-router";
 import axios from "axios";
+import { BASE_URL } from "./constants";
 
 function ConsoleNav(props){
     const [pendingOrders, togglePendingOrders] = useState(false);
@@ -15,7 +16,7 @@ function ConsoleNav(props){
     
     const LogOut = async () => {
         try{
-            await axios.post('http://localhost:3000/logout');
+            await axios.post(`${BASE_URL}/logout`);
         } catch (error){
             console.error('Error fetching User:', error);
         }
@@ -23,7 +24,7 @@ function ConsoleNav(props){
 
     const checkOrders = async () =>{
         try{
-            const response = await axios.get('http://localhost:3000/pendingorders');
+            const response = await axios.get(`${BASE_URL}/pendingorders`);
             let orders = response.data;
             if(orders.length > 0){
                 togglePendingOrders(true);

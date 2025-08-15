@@ -6,6 +6,7 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import TypeDropdown from "./TypeDropdown";
 import BrandDropdown from "./BrandDropdown";
 import axios from "axios";
+import { BASE_URL } from "./constants";
 
 
 function InventoryTable(props){
@@ -62,7 +63,7 @@ function InventoryTable(props){
     const saveToDB = async(id, name, info, price, type, image, stock, sku, brand) => {
         console.log("saving...")
         try{
-            await axios.post('http://localhost:3000/editItem', {name: name, info: info, price: price, image: image, id: id, type: type, stock: stock, sku: sku, brand: brand});
+            await axios.post(`${BASE_URL}/editItem`, {name: name, info: info, price: price, image: image, id: id, type: type, stock: stock, sku: sku, brand: brand});
             props.refresh();
         } catch (error){
             console.error('Error saving inventory:', error);
@@ -71,7 +72,7 @@ function InventoryTable(props){
 
     const deleteItem = async(id) => {
         try{
-            const response = await axios.post('http://localhost:3000/removeItem', {id: id});
+            const response = await axios.post(`${BASE_URL}/removeItem`, {id: id});
             alert("Item Deleted!");
             props.refresh();
         } catch (error){

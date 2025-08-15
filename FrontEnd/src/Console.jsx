@@ -3,6 +3,7 @@ import axios from 'axios';
 import ConsoleNav from "./ConsoleNav";
 import PortalBanner from "./PortalBanner";
 import PortalLogin from "./PortalLogin";
+import { BASE_URL } from "./constants";
 
 function Console(){
     const [isLoggedIn, ChangeStatus] = useState(false);
@@ -18,7 +19,7 @@ function Console(){
 
     const Login = async (u, p) => {
         try{
-            const response = await axios.post('http://localhost:3000/login', {user : u, password : p});
+            const response = await axios.post(`${BASE_URL}/login`, {user : u, password : p});
             if(response.data != "Incorrect Username or Password!"){
                 ChangeStatus(true);
                 changeUser(u);

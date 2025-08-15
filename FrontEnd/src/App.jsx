@@ -3,6 +3,7 @@ import Banner from "./Banner"
 import TextBox from "./TextBox"
 import Footer from "./Footer"
 import axios from "axios"
+import { BASE_URL } from "./constants"
 
 function App() {
   const [dailymessage, changeDailyMessage]= useState("")
@@ -13,7 +14,7 @@ function App() {
 
       const fetchDailyMessage = async () => {
         try{
-            const response = await axios.get('http://localhost:3000/message');
+            const response = await axios.get(`${BASE_URL}/message`);
             changeDailyMessage(response.data);
         } catch (error){
             console.error('Error fetching inventory:', error);

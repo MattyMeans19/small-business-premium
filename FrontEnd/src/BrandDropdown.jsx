@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
+import { BASE_URL } from "./constants";
 
 function BrandDropdown(props){
     const[brands, changeBrands] = useState([]);
@@ -10,7 +11,7 @@ function BrandDropdown(props){
 
     const fetchBrands = async () => {
         try{
-            const response = await axios.get('http://localhost:3000/brands');
+            const response = await axios.get(`${BASE_URL}/brands`);
             changeBrands(response.data);
         } catch (error){
             console.error('Error fetching inventory:', error);

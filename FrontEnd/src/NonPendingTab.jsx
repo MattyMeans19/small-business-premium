@@ -3,6 +3,7 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import axios from "axios";
 import CartItems from "./CartItems";
+import { BASE_URL } from "./constants";
 
 
 function NonPendingOrder(props){
@@ -20,7 +21,7 @@ function NonPendingOrder(props){
         let itemArray = [];
         for(let i = 0; i < orderItems.length; i++){
         try{
-            const response = await axios.post('http://localhost:3000/getOrders', {sku: orderItems[i].sku});
+            const response = await axios.post(`${BASE_URL}/getOrders`, {sku: orderItems[i].sku});
             let orderData = response.data[0];
             itemArray.push(orderData);
             setSubtotal(orderData.price)

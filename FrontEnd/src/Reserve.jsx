@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
+import { BASE_URL } from "./constants";
 
 function Reserve(props){
     const [fName, changeFName] = useState("");
@@ -14,7 +15,7 @@ function Reserve(props){
 
     const fetchOrders = async () => {
     try{
-        const response = await axios.get('http://localhost:3000/orders');
+        const response = await axios.get(`${BASE_URL}/orders`);
         updateOrders([... response.data]);
     } catch (error){
         console.error('Error fetching User:', error);

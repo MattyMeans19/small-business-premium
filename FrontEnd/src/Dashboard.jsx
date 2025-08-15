@@ -4,6 +4,7 @@ import OrderTab from "./OrderTab";
 import NonPendingOrder from "./NonPendingTab";
 import axios from "axios";
 import { useNavigate } from "react-router";
+import { BASE_URL } from "./constants";
 
 function Dashboard(){
 
@@ -23,7 +24,7 @@ function Dashboard(){
 
     const fetchUser = async () => {
     try{
-        const response = await axios.get('http://localhost:3000/user');
+        const response = await axios.get(`${BASE_URL}/user`);
         if(response.data.currentUser != ""){
             ChangeUser(response.data.currentUser);
             changeUserRole(response.data.currentRole);
@@ -37,7 +38,7 @@ function Dashboard(){
 
     const fetchOrders = async () => {
     try{
-        const response = await axios.get('http://localhost:3000/pendingorders');
+        const response = await axios.get(`${BASE_URL}/pendingorders`);
         updateOrders([... response.data]);
     } catch (error){
         console.error('Error fetching User:', error);
@@ -46,7 +47,7 @@ function Dashboard(){
 
     const viewOrders = async (status) => {
     try{
-        const response = await axios.post('http://localhost:3000/vieworders', {status: status});
+        const response = await axios.post(`${BASE_URL}/vieworders`, {status: status});
         changeNonPending([... response.data]);
     } catch (error){
         console.error('Error fetching User:', error);
@@ -55,7 +56,7 @@ function Dashboard(){
 
     const clearList = async () =>{
         try{
-            await axios.patch('http://localhost:3000/orderStatusPurge', {status: viewStatus});
+            await axios.patch(`${BASE_URL}/orderStatusPurge`, {status: viewStatus});
         } catch (error){
             console.error('Error purging list:', error);
         }

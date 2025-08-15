@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Cancel';
 import axios from "axios";
+import { BASE_URL } from "./constants";
 
 function AddUser(props){
     const [adding, toggleAdding] = useState(false);
@@ -51,7 +52,7 @@ function AddUser(props){
 
     const saveUser = async (f, l, u, p, r) => {
         try{
-            const response = await axios.post('http://localhost:3000/addUser', {fname: f, lname: l, uname: u, password: p, role: r});
+            const response = await axios.post(`${BASE_URL}/addUser`, {fname: f, lname: l, uname: u, password: p, role: r});
             props.onSave();
             addMode();
             alert("New User Created!")

@@ -13,15 +13,18 @@ let userRole = "";
 app.use(cors());
 app.use(bodyParser.json());
 
-const db = new pg.Client({
-    user:"postgres",
-    host: "localhost",
-    database: "smallbusiness",
-    password: "Hyl!anWarri0r",
-    port: 5432,
-  });
 
-  db.connect();
+// In your actual code, you would use this line instead:
+const db = new pg.Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  },
+});
+
+db.connect()
+  .then(() => console.log('Connected to the Heroku database'))
+  .catch(err => console.error('Connection error', err.stack));
 
 
   //GET inventory

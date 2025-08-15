@@ -5,6 +5,7 @@ import ProductFilters from "./ProdcutFilters";
 import ProductCard from "./ProductCard";
 import axios from 'axios';
 import AddToCart from "./AddToCart";
+import { BASE_URL } from "./constants";
 
 function Products(){
     const [inventory, SetInventory] = useState([]);
@@ -18,7 +19,7 @@ function Products(){
 
     const fetchInventory = async () => {
         try{
-            const response = await axios.get('http://localhost:3000/inventory');
+            const response = await axios.get(`${BASE_URL}/inventory`);
             SetInventory(response.data);
         } catch (error){
             console.error('Error fetching inventory:', error);
@@ -41,7 +42,7 @@ function Products(){
     const filter = async (t, p, b) => {
         console.log("filtering...")
         try{
-            const response = await axios.post('http://localhost:3000/filter', {type : t, sort : p, brand: b});
+            const response = await axios.post(`${BASE_URL}/filter`, {type : t, sort : p, brand: b});
             SetInventory(response.data)
         } catch (error){
             console.error('Error fetching inventory:', error);
@@ -51,7 +52,7 @@ function Products(){
     const sortBy = async (p) => {
         console.log("sorting...")
         try{
-            const response = await axios.post('http://localhost:3000/sort', {sort : p});
+            const response = await axios.post(`${BASE_URL}/sort`, {sort : p});
             SetInventory(response.data)
         } catch (error){
             console.error('Error fetching inventory:', error);
