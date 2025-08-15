@@ -461,10 +461,12 @@ db.connect()
   //        }
   //});
 
-const buildPath = path.resolve(__dirname, '..', 'build');
+// The path needs to go up one level from 'Backend' to the root
+const buildPath = path.join(__dirname, '..', 'build');
 
 app.use(express.static(buildPath));
 
+// This is also correct but relies on a correct buildPath
 app.get('*', (req, res) => {
   res.sendFile(path.join(buildPath, 'index.html'));
 });
