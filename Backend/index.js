@@ -461,7 +461,7 @@ db.connect()
   //        }
   //});
 
-const buildPath = path.resolve(__dirname, '..', 'FrontEnd', 'build');
+const buildPath = path.resolve(__dirname, '..', 'build');
 
 app.use(express.static(buildPath));
 
