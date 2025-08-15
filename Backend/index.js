@@ -462,7 +462,7 @@ db.connect()
   //});
 
 // The path needs to go up one level from 'Backend' to the root
-const buildPath = path.join(__dirname, '..', 'build');
+const buildPath = path.join(__dirname, '..', 'FrontEnd', 'build');
 
 app.use(express.static(buildPath));
 
