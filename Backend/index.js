@@ -31,14 +31,6 @@ db.connect()
   .then(() => console.log('Connected to the Heroku database'))
   .catch(err => console.error('Connection error', err.stack));
 
-  // Serve static files from the React build folder
-app.use(express.static(path.join(__dirname, '..', 'build')));
-
-// Handle all other GET requests by serving the React index.html file
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
-});
-
   //GET inventory
   app.get("/inventory", async (req,res) =>{
         try{
@@ -472,6 +464,14 @@ app.get('*', (req, res) => {
             return;
           }
   });
+
+  // Serve static files from the React build folder
+app.use(express.static(path.join(__dirname, '..', 'build')));
+
+// Handle all other GET requests by serving the React index.html file
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
+});
 
   app.listen(port, () => {
     console.log(`Server running on port ${port}`);
