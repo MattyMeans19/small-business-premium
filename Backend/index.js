@@ -461,14 +461,14 @@ db.connect()
   //        }
   //});
 
-  // Serve static files from the React build folder
-app.use(express.static(path.join(__dirname, '..', 'build')));
+const buildPath = path.join(__dirname, '..', 'build');
 
-// Handle all other GET requests by serving the React index.html file
+app.use(express.static(buildPath));
+
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
+  res.sendFile(path.join(buildPath, 'index.html'));
 });
 
-  app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
-  });
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+});
