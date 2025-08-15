@@ -5,7 +5,7 @@
   "main": "Backend/index.js",
   "scripts": {
     "start": "node Backend/index.js",
-    "heroku-postbuild": "npm install --prefix FrontEnd && npm run build --prefix FrontEnd"
+    "heroku-postbuild": "cd FrontEnd npm install && npm run build"
   },
    "dependencies": {
     "bcrypt": "^5.1.1",
