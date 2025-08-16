@@ -231,7 +231,7 @@ app.post("/editItem", async (req,res) => {
 app.post("/search", async (req,res) => {
     let name = req.body.name;
     try{
-        let result = await db.query(`SELECT * FROM liveinventory WHERE Upper(name) LIKE '%${name}%' OR Lower(name) LIKE '%${name}%' OR sku LIKE '%${name}%'`);
+        let result = await db.query('SELECT * FROM liveinventory WHERE name ILIKE $1 OR sku ILIKE $1', [`%${name}%`]);
             res.json(result.rows);
     } catch (err){
         console.error(err);
